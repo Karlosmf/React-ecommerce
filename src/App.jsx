@@ -1,25 +1,27 @@
-//import { useState } from 'react'
-
-//import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/navbar';
 import ItemListContainer from './components/itemlistcontainer';
-import CardWidget from './components/cardwidget';
+import ItemDetailContainer from './components/itemdetailcontainer';
 
 const App = () => {
   return (
     <BrowserRouter> 
       <Navbar />
       <Routes>
-        <Route path="/" element={<ItemListContainer greeting="Bienvenido a mi tienda!" />} />
-        <Route path="/category/:id" element={<ItemListContainer greeting="Bienvenido a mi tienda!" />} />
-        <Route path="/item/:id" element={<CardWidget />} />
+        <Route path="/" element={<ItemListContainer />} />
+        <Route path="/category/:id" element={<ItemListContainer />} />
+        <Route path="/item/:id" element={<ItemDetailContainer />} />
       </Routes>
     </BrowserRouter>
         
+      );
+    };
+    
+    export default App
 
    
 
+    
     // <div class="bg-gray-100">
     //   <ItemListContainer greeting="Bienvenido a mi tienda!" />
     //   <div class="container mx-auto md:flex gap-2 md:flex-wrap grid">
@@ -35,7 +37,3 @@ const App = () => {
    
 
     // </div>
-  );
-};
-
-export default App

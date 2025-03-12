@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+// import {link} from "react-router-dom";
 
 //crear link de categorias desde fakestoreapi.com
 const CATEGORIES_URL = "https://fakestoreapi.com/products/categories";
@@ -22,12 +23,18 @@ const Categories = ({ onSelect }) => {
   
   //retornar un select con las categorias
   return (
-    <select onChange={onSelect} className="text-white bg-gray-800 px-2 rounded">
-      <option value="">Todas</option>
-      {categories.map(category => (
-        <option key={category} value={category}>{category}</option>
-      ))}
-    </select>
+    // <select onChange={onSelect} className="text-white bg-gray-800 px-2 rounded">
+    //   <option value="">Todas</option>
+    //   {categories.map(category => (
+    //     <option key={category} value={category}>{category}</option>
+    //   ))}
+    // </select>
+
+      categories.map(category => (
+        <li><a href={`/category/${category}`} className="text-white hover:text-gray-300">{category}</a></li>
+      ))
+    
+
   );
 };
 

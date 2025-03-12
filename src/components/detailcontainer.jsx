@@ -10,19 +10,17 @@ import { ShoppingCartRounded } from '@mui/icons-material';
 const CardWidget = ({ id, imageUrl, title, description, price }) => {
 
   return (
+    <div className="flex">
+    <img src={imageUrl} alt={title} className="w-1/3"  />
     <Card variant="outlined"
       sx={{
-        maxWidth: 1/4,
+        maxWidth: 2/3,
         margin: 'auto',
         marginTop: 2,
         marginBottom: 2,
         borderRadius: 2,
       }}>
-      <CardMedia
-        sx={{ height: 140, width:1, aspectRatio: 1 }}
-        image={imageUrl}
-        title="{title}"
-      />
+      
       <CardContent>
       <Typography gutterBottom variant="h5" component="div">
           {title} - # {id}
@@ -41,9 +39,9 @@ const CardWidget = ({ id, imageUrl, title, description, price }) => {
         <Button size="small" variant="outlined" startIcon={<ShoppingCartRounded />}>
           Comprar
         </Button>
-        <a href={`/item/${id}`}><Button size="small">Ver detalles</Button></a>
       </CardActions>
     </Card>
+    </div>
   );
 };
 

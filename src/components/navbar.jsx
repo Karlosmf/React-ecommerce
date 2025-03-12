@@ -10,7 +10,7 @@ const Navbar = () => {
         <ul className="flex space-x-4">
           <li><a href="#" className="text-white hover:text-gray-300">Inicio</a></li>
           {/* <li><a href="#" className="text-white hover:text-gray-300">Productos</a></li> */}
-          <li className='text-white'>Categoría <Categories /></li>
+          <Categories />
           <li><a href="#" className="text-white hover:text-gray-300">Contacto</a></li>
           <CartWidget />
         </ul>
