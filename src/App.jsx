@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/navbar';
 import ItemListContainer from './components/itemlistcontainer';
 import ItemDetailContainer from './components/itemdetailcontainer';
+import Speener from './components/Speener';
 
 const App = () => {
   return (
@@ -11,6 +12,8 @@ const App = () => {
         <Route path="/" element={<ItemListContainer />} />
         <Route path="/category/:id" element={<ItemListContainer />} />
         <Route path="/item/:id" element={<ItemDetailContainer />} />
+        <Route path="/speener" element={<Speener />} />
+
       </Routes>
     </BrowserRouter>
         
