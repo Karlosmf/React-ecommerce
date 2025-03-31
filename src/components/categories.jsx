@@ -1,41 +1,45 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-// import {link} from "react-router-dom";
+import { db } from "../../firebase/client"; 
+import { collection, getDocs } from "firebase/firestore"; // Importa las funciones necesarias de Firebase Firestore
+//traer las categorias de la base de datos
+const Categories = () => {
+  const [categories, setCategories] = useState([]); //estado para las categorias
+  const [loading, setLoading] = useState(true); //estado para el loading
 
-//crear link de categorias desde fakestoreapi.com
-const CATEGORIES_URL = "https://fakestoreapi.com/products/categories";
-
-//crear componente Categories
-const Categories = ({ onSelect }) => {
-  //crear estado para guardar las categorias
-  const [categories, setCategories] = useState([]);
-  
-  //fetch categorias
   useEffect(() => {
-    axios.get(CATEGORIES_URL)
-      .then(response => {
-        setCategories(response.data);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }, []);
-  
-  //retornar un select con las categorias
+    const fetchCategories = async () => {
+      // get categories from column categoryId from firestore
+      try {
+        const querySnapshot = await getDocs(collection(db, "products"));
+        const categoriesData = querySnapshot.docs.map(doc => doc.data().categoryId);
+        const uniqueCategories = Array.from(new Set(categoriesData));
+        setCategories(uniqueCategories);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+        setLoading(false);
+      } 
+    };
+    fetchCategories();
+    console.log(categories);
+  })  
+
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    // <select onChange={onSelect} className="text-white bg-gray-800 px-2 rounded">
-    //   <option value="">Todas</option>
-    //   {categories.map(category => (
-    //     <option key={category} value={category}>{category}</option>
-    //   ))}
-    // </select>
-
-      categories.map(category => (
-        <li><a href={`/category/${category}`} className="text-white hover:text-gray-300">{category}</a></li>
-      ))
+    categories.map((category, index) => (
+        <li key={index}>
+          <a href={`/category/${category}`} className="text-white hover:text-gray-300">
+            {category}
+          </a>
+        </li>
+      )
     
+  ));
 
-  );
 };
 
 export default Categories;

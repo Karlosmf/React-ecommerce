@@ -1,30 +1,41 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import CardWidget from './cardwidget';
+import Item from './item';
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from '../../firebase/client';
 
 const ItemListContainer = () => {
-  // get products from fakestoreapi.com/products
+  //estado para los productos
   const [products, setProducts] = useState([]);
+  const [title, setTitle] = useState('Productos');
   const [error, setError] = useState(null);
+  //estado para el loading
+  const [loading, setLoading] = useState(true);
+  const { categoryId } = useParams();
 
-  const { id } = useParams();
-  //fetch products 
+// obtener los productos de la base de datos
   useEffect(() => {
-    axios.get('https://fakestoreapi.com/products/category/' + id)
-      .then(response => {
-        setProducts(response.data);
-      })
-      .catch(error => {
+    const fetchProducts = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "products"));
+        const productsData = querySnapshot.docs.map(doc => doc.data(), where("categoryId", "==", categoryId));
+        setProducts(productsData);
+        setLoading(false);
+      } catch (error) {
         setError(error);
-      });
-  }, []);
+        setLoading(false);
+      }
+    };
+    fetchProducts();
 
-//retornar todos los productos utilizando el componente CardWidget
+  }, [categoryId]);
+
+//retornar todos los productos utilizando el componente Item
   return (
     <div className="container mx-auto md:flex gap-2 md:flex-wrap grid">
+      Categoría: {categoryId}
       {products.map(product => (
-        <CardWidget key={product.id} id={product.id} imageUrl={product.image} title={product.title} description={product.description} price={product.price} />
+        <Item key={product.id} id={product.id} imageUrl={product.image} title={product.title} description={product.description} price={product.price} />
       ))}
     </div>
   );

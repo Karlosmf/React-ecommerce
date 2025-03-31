@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import { ShoppingCartRounded } from '@mui/icons-material';
 
 // accept image url, title, description, price props
-const CardWidget = ({ id, imageUrl, title, description, price }) => {
+const Item = ({ id, imageUrl, title, description, price }) => {
 
   return (
     <Card variant="outlined"
@@ -47,4 +47,4 @@ const CardWidget = ({ id, imageUrl, title, description, price }) => {
   );
 };
 
-export default CardWidget;
+export default Item;
