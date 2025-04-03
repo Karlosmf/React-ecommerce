@@ -1,43 +1,33 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
-import Detailcontainer from './detailcontainer';
+import { useEffect, useState } from "react"
+import ItemDetail from "../components/ItemDetail";
+import { useParams } from "react-router-dom";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../firebase/client";
 
 
 const ItemDetailContainer = () => {
-  const [product, setProduct] = useState(null);
-  const [error, setError] = useState(null);
-  const { id } = useParams();
 
-  useEffect(() => {
-    axios.get(`https://fakestoreapi.com/products/${id}`)
-      .then(response => {
-        setProduct(response.data);
-      })
-      .catch(error => {
-        setError(error);
-      });
-  }, [id]);
+    const [item, setItem] = useState(null);
+    const id = useParams().id;
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
+    useEffect(() => {
+
+      const docRef = doc(db, "productos", id);
+      getDoc(docRef)
+        .then((resp) => {
+          setItem(
+            { ...resp.data(), id: resp.id }
+          );
+        })
+
+    }, [id])
+    
 
   return (
-    <div className="container mx-auto">
-      {product ? (
-        <Detailcontainer
-          imageUrl={product.image}
-          title={product.title}
-          description={product.description}
-          price={product.price}
-        />
-      ) : (
-        <div>Loading...</div>
-      )}
+    <div>
+        {item && <ItemDetail item={item} />}
     </div>
-  );
-};
+  )
+}
 
-export default ItemDetailContainer;
-
+export default ItemDetailContainer

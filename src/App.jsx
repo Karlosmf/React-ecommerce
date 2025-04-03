@@ -1,26 +1,41 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Navbar from './components/navbar';
-import ItemListContainer from './components/itemlistcontainer';
-import ItemDetailContainer from './components/itemdetailcontainer';
-import Speener from './components/Speener';
+import Contacto from "./components/Contacto";
+import ItemDetailContainer from "./components/ItemDetailContainer";
+import ItemListContainer from "./components/ItemListContainer";
+import Navbar from "./components/Navbar";
+import Nosotros from "./components/Nosotros";
 
-const App = () => {
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { CartProvider } from "./context/CartContext";
+import Carrito from "./components/Carrito";
+import Checkout from "./components/Checkout";
+import "./css/styles.css";
+
+function App() {
   return (
-    <BrowserRouter> 
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<ItemListContainer />} />
-        <Route path="/category/:id" element={<ItemListContainer />} />
-        <Route path="/item/:id" element={<ItemDetailContainer />} />
-        <Route path="/speener" element={<Speener />} />
+    <div>
+      <CartProvider>
+        <BrowserRouter>
 
-      </Routes>
-    </BrowserRouter>
-        
-      );
-    };
-    
-    export default App
+          <Navbar />
+
+          <Routes>
+            <Route path="/" element={<ItemListContainer />} />
+            <Route path="/item/:id" element={<ItemDetailContainer />}/>
+            <Route path="/productos" element={<ItemListContainer />} />
+            <Route path="/productos/:categoria" element={<ItemListContainer />} />
+            <Route path="/nosotros" element={<Nosotros />}/>
+            <Route path="/contacto" element={<Contacto />}/>
+            <Route path="/carrito" element={<Carrito />}/>
+            <Route path="/checkout" element={<Checkout />}/>
+          </Routes>
+          
+        </BrowserRouter>
+      </CartProvider>
+    </div>
+  );
+}
+
+export default App;
 
    
 

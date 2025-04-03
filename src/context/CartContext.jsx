@@ -1,36 +1,57 @@
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from "react";
 
-export const ShopContext = createContext();
 
-export const ShopComponentContext = ({ children }) => {
+export const CartContext = createContext();
 
-  const [cart, setCart] = useState([])
+const carritoInicial = JSON.parse(localStorage.getItem("carrito")) || [];
 
-  const handleAddToCart = (item) => {
-    setCart([...cart, item ])
-  }
+export const CartProvider = ({children}) => {
 
-  const handleEmptyCart = () => {
-    setCart([])
-  }
+    const [carrito, setCarrito] = useState(carritoInicial);
 
-  const handleCount = () => {
-    let contador = 0
-    cart.forEach((item) => {
-      contador += item.quantity
-    })
-    return contador
-  }
+    const agregarAlCarrito = (item, cantidad) => {
+        const itemAgregado = { ...item, cantidad };
 
-  const handleRemove = (id) => {
-    const newCart = cart.filter((item) => item.id !== id)
-    setCart(newCart)
-  }
+        const nuevoCarrito = [...carrito];
+        const estaEnElCarrito = nuevoCarrito.find((producto) => producto.id === itemAgregado.id);
 
-  return(
-    <ShopContext.Provider value={{ handleAddToCart, handleCount, handleRemove, cart, handleEmptyCart }}>
-      {children}
-    </ShopContext.Provider>
-  )
+        if (estaEnElCarrito) {
+            estaEnElCarrito.cantidad += cantidad;
+        } else {
+            nuevoCarrito.push(itemAgregado);
+        }
+        setCarrito(nuevoCarrito);
+    }
+
+    const cantidadEnCarrito = () => {
+        return carrito.reduce((acc, prod) => acc + prod.cantidad, 0);
+    }
+
+    const precioTotal = () => {
+        return carrito.reduce((acc, prod) => acc + prod.precio * prod.cantidad, 0);
+    }
+
+    const vaciarCarrito = () => {
+        setCarrito([]);
+    }
+
+    useEffect(() => {
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+    }, [carrito])
+    
+
+    return (
+        <CartContext.Provider value={ {
+            carrito,
+            agregarAlCarrito,
+            cantidadEnCarrito,
+            precioTotal,
+            vaciarCarrito
+        } }>
+            {children}
+        </CartContext.Provider>
+    )
+
+
+
 }
-
