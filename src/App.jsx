@@ -8,7 +8,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { CartProvider } from "./context/CartContext";
 import Carrito from "./components/Carrito";
 import Checkout from "./components/Checkout";
-import "./css/styles.css";
+// import "./css/styles.css"; // TODO: Borrar incluida la fuente
 
 function App() {
   return (

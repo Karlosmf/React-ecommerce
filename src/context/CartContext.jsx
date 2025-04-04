@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-
+import { db } from '../../firebase/client';
 
 export const CartContext = createContext();
 
@@ -8,6 +8,17 @@ const carritoInicial = JSON.parse(localStorage.getItem("carrito")) || [];
 export const CartProvider = ({children}) => {
 
     const [carrito, setCarrito] = useState(carritoInicial);
+    const [categorias, setCategorias] = useState([]);
+
+    useEffect(() => {
+        const obtenerCategorias = async () => {
+          const categoriasRef = db.collection('categorias');
+          const snapshot = await categoriasRef.get();
+          const categorias = snapshot.docs.map((doc) => doc.data());
+          setCategorias(categorias);
+        };
+        obtenerCategorias();
+      }, []);
 
     const agregarAlCarrito = (item, cantidad) => {
         const itemAgregado = { ...item, cantidad };
@@ -46,7 +57,8 @@ export const CartProvider = ({children}) => {
             agregarAlCarrito,
             cantidadEnCarrito,
             precioTotal,
-            vaciarCarrito
+            vaciarCarrito,
+            categorias,
         } }>
             {children}
         </CartContext.Provider>

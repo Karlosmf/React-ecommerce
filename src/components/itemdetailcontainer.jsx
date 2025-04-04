@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import ItemDetail from "../components/ItemDetail";
+import ItemDetail from "./ItemDetail";
 import { useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase/client";
@@ -24,7 +24,8 @@ const ItemDetailContainer = () => {
     
 
   return (
-    <div>
+    <div className="container mx-auto p-4">
+      <h2 className="text-2xl font-bold mb-4">{greeting}</h2>
         {item && <ItemDetail item={item} />}
     </div>
   )
