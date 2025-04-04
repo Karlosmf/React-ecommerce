@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { db } from '../../firebase/client';
+import { collection, getDocs } from "firebase/firestore";
 
 export const CartContext = createContext();
 
@@ -12,11 +13,18 @@ export const CartProvider = ({children}) => {
 
     useEffect(() => {
         const obtenerCategorias = async () => {
-          const categoriasRef = db.collection('categorias');
-          const snapshot = await categoriasRef.get();
-          const categorias = snapshot.docs.map((doc) => doc.data());
-          setCategorias(categorias);
-        };
+          // get categories from column categoryId from firestore
+       try {
+        const querySnapshot = await getDocs(collection(db, "products"));
+        const categoriesData = querySnapshot.docs.map(doc => doc.data().categoryId);
+        const uniqueCategories = Array.from(new Set(categoriesData));
+        setCategorias(uniqueCategories);
+        // setLoading(false);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+        setLoading(false);
+      } 
+    };
         obtenerCategorias();
       }, []);
 
