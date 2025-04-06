@@ -74,7 +74,7 @@ const ItemListContainer = () => {
 
   // Renderiza el componente ItemList con los productos obtenidos y el título
   return (
-    <div>
+    <div className="container mx-auto">
       {/* Asegúrate de que ItemList pueda manejar un array de productos vacío sin problemas */}
       <ItemList productos={productos} titulo={titulo} />
     </div>

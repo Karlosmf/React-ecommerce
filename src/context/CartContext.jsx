@@ -13,7 +13,7 @@ export const CartProvider = ({children}) => {
 
     useEffect(() => {
         const obtenerCategorias = async () => {
-          // get categories from column categoryId from firestore
+          // Obtenerc categorias de la columna categoryId de firestore
        try {
         const querySnapshot = await getDocs(collection(db, "products"));
         const categoriesData = querySnapshot.docs.map(doc => doc.data().categoryId);

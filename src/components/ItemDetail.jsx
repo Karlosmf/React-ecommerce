@@ -20,14 +20,14 @@ const ItemDetail = ( {item} ) => {
     }
 
   return (
-    <div className="container">
-        <div className="producto-detalle">
+    <div className="container mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2">
             <img src={item.imagen} alt={item.titulo} />
             <div>
-                <h3 className="titulo">{item.titulo}</h3>
-                <p className="descripcion">{item.descripcion}</p>
-                <p className="categoria text-capitalize">Categoría: {item.categoria}</p>
-                <p className="precio">${item.precio}</p>
+                <h3 className="card-title">{item.titulo}</h3>
+                <p className="card-text">{item.descripcion}</p>
+                <p className="card-text text-capitalize">Categoría: {item.categoria}</p>
+                <p className="card-text">${item.precio}</p>
                 <ItemCount
                   cantidad={cantidad}
                   handleSumar={handleSumar}

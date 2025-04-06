@@ -33,7 +33,7 @@ const Checkout = () => {
 
     if (pedidoId) {
         return (
-            <div className="container">
+            <div className="flex items-center">
                 <h1 className="main-title">Muchas gracias por tu compra</h1>
                 <p>Tu número de pedido es: {pedidoId}</p>
             </div>
@@ -41,7 +41,7 @@ const Checkout = () => {
     }
 
   return (
-    <div className="container">
+    <div className="flex items-center">
         <h1 className="main-title">Finalizar compra</h1>
         <form className="formulario" onSubmit={handleSubmit(comprar)}>
 
