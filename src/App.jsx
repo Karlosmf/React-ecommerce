@@ -1,23 +1,20 @@
-import Contacto from "./components/Contacto";
-import ItemDetailContainer from "./components/ItemDetailContainer";
-import ItemListContainer from "./components/ItemListContainer";
-import Navbar from "./components/Navbar";
 import Nosotros from "./components/Nosotros";
+import Contacto from "./components/Contacto";
+import Navbar from "./components/Navbar";
+import Carrito from "./components/Carrito";
+import Checkout from "./components/Checkout";
+import ItemListContainer from "./components/ItemListContainer";
+import ItemDetailContainer from "./components/ItemDetailContainer";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { CartProvider } from "./context/CartContext";
-import Carrito from "./components/Carrito";
-import Checkout from "./components/Checkout";
-// import "./css/styles.css"; // TODO: Borrar incluida la fuente
 
 function App() {
   return (
     <div className="bg-gray-100 min-h-screen">
       <CartProvider>
         <BrowserRouter>
-
           <Navbar />
-
           <Routes>
             <Route path="/" element={<ItemListContainer />} /> {/* muestra todo */}
             <Route path="/item/:id" element={<ItemDetailContainer />}/>
