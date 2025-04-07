@@ -12,7 +12,7 @@ const ItemDetailContainer = () => {
 
     useEffect(() => {
 
-      const docRef = doc(db, "productos", id);
+      const docRef = doc(db, "products", id);
       getDoc(docRef)
         .then((resp) => {
           setItem(
@@ -25,7 +25,6 @@ const ItemDetailContainer = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">{greeting}</h2>
         {item && <ItemDetail item={item} />}
     </div>
   )

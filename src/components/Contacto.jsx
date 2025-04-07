@@ -1,4 +1,7 @@
 import { useForm } from "react-hook-form";
+import React, { useContext, useState } from 'react'
+// materialUI import Input
+import { Button, FormControl, TextField } from '@mui/material';
 
 const Contacto = () => {
 
@@ -9,20 +12,18 @@ const Contacto = () => {
     }
 
   return (
+    <div className="shadow-md mx-auto w-1/2 p-4 mt-4 grid grid-cols-1 gap-4 bg-white rounded-lg">
+        <h1 className="text-3xl font-bold">Contacto</h1>
+        
+        <FormControl className="grid gap-2" component="fieldset" variant="standard">
+            <TextField type="text" variant="outlined" placeholder="Ingresá tu nombre" {...register("nombre")} />
+            <TextField type="email" variant="outlined" placeholder="Ingresá tu e-mail" {...register("email")} />
+            <TextField type="phone" variant="outlined" placeholder="Ingresá tu teléfono" {...register("telefono")} />
 
-    <div className="container">
-        <h1 className="main-title">Contacto</h1>
-        <form className="formulario" onSubmit={handleSubmit(enviar)}>
+            <Button variant="contained" color="success" type="submit">Enviar</Button>
 
-            <input type="text" placeholder="Ingresá tu nombre" {...register("nombre")} />
-            <input type="email" placeholder="Ingresá tu e-mail" {...register("email")} />
-            <input type="phone" placeholder="Ingresá tu teléfono" {...register("telefono")} />
-
-            <button className="enviar" type="submit">Enviar</button>
-
-        </form>
+        </FormControl>
     </div>
-
   )
 }
 

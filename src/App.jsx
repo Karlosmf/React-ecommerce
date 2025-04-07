@@ -1,6 +1,6 @@
 import Contacto from "./components/Contacto";
 import ItemDetailContainer from "./components/ItemDetailContainer";
-import ItemListContainer from "./components/ItemListContainer";
+import ItemListContainer from "./components/itemlistcontainer";
 import Navbar from "./components/Navbar";
 import Nosotros from "./components/Nosotros";
 
@@ -12,7 +12,7 @@ import Checkout from "./components/Checkout";
 
 function App() {
   return (
-    <div>
+    <div className="bg-gray-100 min-h-screen">
       <CartProvider>
         <BrowserRouter>
 
